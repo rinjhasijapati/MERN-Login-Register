@@ -1,16 +1,20 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault()
         axios.post('http://localhost:3001/register', {name, email, password})
-        .then(result => console.log(result))
+        .then(result => {console.log(result)
+            navigate('/login')
+        })
         .catch(err => console.log(err))
     }
 
@@ -64,7 +68,7 @@ function Signup() {
                         Register
                     </button>
 
-                    <p>Already Have an Account</p>
+                    <p>Already Have an Account?</p>
                 </form>
 
                 <Link to="/login" className='btn btn-default border w-100 bg-light rounded-0 text-decoration-none'>
